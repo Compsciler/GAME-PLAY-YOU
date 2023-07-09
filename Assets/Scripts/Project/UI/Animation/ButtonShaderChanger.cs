@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -27,5 +28,16 @@ public class ButtonShaderChanger : MonoBehaviour, IPointerEnterHandler, IPointer
     public void OnPointerExit(PointerEventData eventData)
     {
         buttonImage.material = originalMaterial;
+    }
+
+    public void SetActiveAfterDelay(GameObject go)
+    {
+        StartCoroutine(SetActiveAfterDelayCoroutine(go, 1.5f));
+    }
+
+    public IEnumerator SetActiveAfterDelayCoroutine(GameObject go, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        go.SetActive(true);
     }
 }
