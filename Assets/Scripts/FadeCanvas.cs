@@ -16,8 +16,11 @@ public class FadeCanvas : MonoBehaviour
 
     [SerializeField] GameObject setInactiveGO;
     [SerializeField] GameObject setActiveGO;
+    [SerializeField] GameObject setActiveGO2;
 
     [SerializeField] TextToSpeech textToSpeech;
+
+    [SerializeField] bool doExtra = true;
 
     void Awake()
     {
@@ -74,11 +77,20 @@ public class FadeCanvas : MonoBehaviour
             yield return null;
         }
         SetTransitionPanelColorAlpha(fadeCurve.Evaluate(1f));
-        Debug.Log("here");
-        setInactiveGO.GetComponent<Canvas>().enabled = false;
-        setActiveGO.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
-        textToSpeech.PlayAudio();
+        if (doExtra)
+        {
+            setInactiveGO.GetComponent<Canvas>().enabled = false;
+            setActiveGO.SetActive(true);
+            setActiveGO2.SetActive(true);
+            yield return new WaitForSeconds(1.0f);
+            AudioSource audio = textToSpeech.GetComponent<AudioSource>();
+            while (!audio.isPlaying)
+            {
+                textToSpeech.PlayAudio();
+                yield return null;
+            }
+        }
+        
     }
 
     private void SetTransitionPanelColorAlpha(float alpha)

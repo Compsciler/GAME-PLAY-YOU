@@ -9,7 +9,7 @@ using HtmlAgilityPack;
 
 public class ItchCommentFetcher : MonoBehaviour
 {
-    string url = "https://rogerw.itch.io/webcam-test";
+    string url = "https://rogerw.itch.io/game-play-you";
 
     string html;
 
