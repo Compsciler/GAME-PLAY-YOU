@@ -14,6 +14,11 @@ public class ButtonShaderChanger : MonoBehaviour, IPointerEnterHandler, IPointer
         originalMaterial = buttonImage.material;
     }
 
+    public void ResetMatieral()
+    {
+        buttonImage.material = originalMaterial;
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         buttonImage.material = newMaterial;
