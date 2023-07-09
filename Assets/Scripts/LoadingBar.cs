@@ -31,5 +31,7 @@ public class LoadingBar : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
+        GameManager.Instance.ChangeState(GameState.GameStarted);
     }
 }

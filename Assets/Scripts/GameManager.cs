@@ -6,6 +6,16 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
+    
     private GameState state = GameState.GameNotStarted;
     public GameState State => state;
 
@@ -13,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UnityEvent OnGameStarted;
     [SerializeField] UnityEvent OnGameFinished;
 
-    void ChangeState(GameState newState)
+    public void ChangeState(GameState newState)
     {
         state = newState;
         OnGameStateChanged?.Invoke(state);
@@ -30,6 +40,16 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    float t = 0.0f;
+    void Update()
+    {
+        t += Time.deltaTime;
+        if (t > 10.0f)
+        {
+            ChangeState(GameState.GameFinished);
         }
     }
 }

@@ -76,8 +76,12 @@ public class TextToSpeech : MonoBehaviour
             AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
 
             audioSource.clip = clip;
-            audioSource.Play();
         }
+    }
+
+    public void PlayAudio()
+    {
+        audioSource.Play();
     }
 
     private void WriteIntoFile(Stream stream)
