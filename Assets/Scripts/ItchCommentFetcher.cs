@@ -36,7 +36,6 @@ public class ItchCommentFetcher : MonoBehaviour
         if (www.result == UnityWebRequest.Result.Success)
         {
             html = www.downloadHandler.text;
-            Debug.Log(html);
             // byte[] results = www.downloadHandler.data;  // Binary data
         }
         else

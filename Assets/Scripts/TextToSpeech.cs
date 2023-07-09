@@ -11,8 +11,10 @@ using Amazon.Runtime;
 
 public class TextToSpeech : MonoBehaviour
 {
+    [SerializeField] ItchCommentFetcher itchCommentFetcher;
+    
     [SerializeField] AudioSource audioSource;
-    string textToSpeak = "Hi, my name is mark and I am making a video game about magnets.";
+    string textToSpeak = "Hi, my name is Mark and I am making a video game about magnets.";
 
     string configPath;
     string audioOutputPath;
@@ -22,6 +24,21 @@ public class TextToSpeech : MonoBehaviour
         string rootPath = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, ".."));
         configPath = $"{rootPath}/config.json";
         audioOutputPath = $"{Application.persistentDataPath}/ttsaudio.mp3";
+    }
+
+    void OnEnable()
+    {
+        itchCommentFetcher.OnNewComment += HandleNewComment;
+    }
+
+    void OnDisable()
+    {
+        itchCommentFetcher.OnNewComment -= HandleNewComment;
+    }
+
+    private void HandleNewComment(ItchCommentFetcher.Comment comment)
+    {
+        textToSpeak = comment.content;
     }
 
     async Task Start()
