@@ -5,6 +5,7 @@ using UnityEngine;
 public class WebcamMaterialDisplay : MonoBehaviour
 {
     WebCamTexture webcam;
+    public WebCamTexture Webcam => webcam;
     Renderer rend;
 
     void Awake()
