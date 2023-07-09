@@ -13,6 +13,9 @@ public class LoadingBar : MonoBehaviour
     [SerializeField] float progressNum = 0f;
     public float ProgresNum => progressNum;
 
+    bool hasPregameStarted = false;
+    [SerializeField] TriggerAnimations triggerAnimations;
+
     public IEnumerator LoadingBarCoroutine()
     {
         float time = 0f;
@@ -20,6 +23,11 @@ public class LoadingBar : MonoBehaviour
         while (time < duration)
         {
             progressNum = progressCurve.Evaluate(time / duration) * multiplier;
+            if (time > duration * 0.88f && !hasPregameStarted)
+            {
+                triggerAnimations.TriggerAllAnimations();
+                hasPregameStarted = true;
+            }
             time += Time.deltaTime;
             yield return null;
         }
